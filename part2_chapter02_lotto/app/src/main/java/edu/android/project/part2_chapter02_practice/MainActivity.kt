@@ -84,6 +84,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+        // 셔플을 진행한 후 list를 뽑는다
         numberList.shuffle()
 
         // 자동으로 타입이 정해지는구나
