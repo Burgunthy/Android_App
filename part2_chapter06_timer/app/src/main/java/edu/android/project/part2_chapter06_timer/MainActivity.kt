@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                     // 값이 변경되었을 때
                     if(fromUser) {
-                        updateRemainTime(progress * 60 * 1000L)
+                        updateRemainTime(progress * 100 * 10L)
                     }
                 }
 
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startCountDown() {
-        currentCountDownTimer = createCountDownTimer(seekBar.progress * 60 * 1000L)
+        currentCountDownTimer = createCountDownTimer(seekBar.progress * 100 * 10L)
         currentCountDownTimer?.start()
 
         tickingSoundId?.let { soundId->
@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createCountDownTimer(initialMillis: Long): CountDownTimer =
-            object : CountDownTimer(initialMillis, 1000) {
+            object : CountDownTimer(initialMillis, 10) {
                 override fun onFinish() {
                     // 카운트 다운이 종료되었을 때
                     completeCountDown()
@@ -135,13 +135,13 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun updateRemainTime(remainMillis: Long) {
         // 초단위로 바꿔준다
-        val remainSeconds = remainMillis / 1000
+        val remainSeconds = remainMillis / 10
 
-        remainMinutesTextView.text = "%02d'".format(remainSeconds / 60)
-        remainSecondsTextView.text = "%02d".format(remainSeconds % 60)
+        remainMinutesTextView.text = "%02d'".format(remainSeconds / 100)
+        remainSecondsTextView.text = "%02d".format(remainSeconds % 100)
     }
     private fun updateSeekBar(remainMillis: Long) {
-        seekBar.progress = (remainMillis / 1000 / 60).toInt()
+        seekBar.progress = (remainMillis / 10 / 100).toInt()
     }
 
 }
