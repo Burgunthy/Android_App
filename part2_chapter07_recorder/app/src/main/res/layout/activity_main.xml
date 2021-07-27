@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <edu.android.project.part2_chapter07_recorder.SoundVisualizerView
-        android:id="@+id/soundvisualizerView"
+        android:id="@+id/soundVisualizerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="10dp"
@@ -16,13 +16,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <edu.android.project.part2_chapter07_recorder.CountUpView
+    <edu.android.project.part2_chapter07_recorder.CountUpTextView
         android:id="@+id/recordTimeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:text="00:00"
-        android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@id/recordButton"
         app:layout_constraintEnd_toEndOf="@id/recordButton"
         app:layout_constraintStart_toStartOf="@id/recordButton"
