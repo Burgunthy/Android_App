@@ -6,27 +6,27 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.webkit.URLUtil
+import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private val goHomeButton: ImageButton by lazy {
         findViewById<ImageButton>(R.id.goHomeButton)
     }
-
     private val addressBar: EditText by lazy {
         findViewById<EditText>(R.id.addressBar)
     }
-
     private val goBackButton: ImageButton by lazy {
         findViewById<ImageButton>(R.id.goBackButton)
     }
-
     private val goForwardButton: ImageButton by lazy {
         findViewById<ImageButton>(R.id.goForwardButton)
     }
@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
     private val refreshLayout: SwipeRefreshLayout by lazy {
         findViewById<SwipeRefreshLayout>(R.id.refreshLayout)
     }
-
     private val webView: WebView by lazy {
         findViewById<WebView>(R.id.webView)
     }
@@ -53,35 +52,32 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if(webView.canGoBack()) {
-            // 뒤로갈 내용이 있다면
             webView.goBack()
         } else {
-            // 없다면 그냥 오리지날 런
             super.onBackPressed()
         }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun initViews() {
+        // 시작 화면 설정
         webView.apply {
-            webViewClient = WebViewClient()             // 이동되지 않게 하기
+            webViewClient = WebViewClient()
             webChromeClient = WebChromeClient()
             settings.javaScriptEnabled = true
-            loadUrl(DEFAULT_URL)        // 암호화되지 않았어!
+            loadUrl(DEFAULT_URL)
         }
     }
-
     private fun bindViews() {
         goHomeButton.setOnClickListener {
             webView.loadUrl(DEFAULT_URL)
         }
 
-        // 액션이 발생했을 때
         addressBar.setOnEditorActionListener { v, actionId, event ->
             if(actionId == EditorInfo.IME_ACTION_DONE) {
                 val loadingUrl = v.text.toString()
 
-                // http 없어도 바로 켜질 수 있게 만들기
+                // 확인 액션이 되었을 때
                 if(URLUtil.isNetworkUrl(loadingUrl)) {
                     webView.loadUrl(loadingUrl)
                 } else {
@@ -95,18 +91,15 @@ class MainActivity : AppCompatActivity() {
         goBackButton.setOnClickListener {
             webView.goBack()
         }
-
         goForwardButton.setOnClickListener {
             webView.goForward()
         }
 
-        // 당겼을 때
         refreshLayout.setOnRefreshListener {
             webView.reload()
         }
     }
 
-    // inner를 써야지 상위에 접근 가능하다
     inner class WebViewClient: android.webkit.WebViewClient() {
 
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
@@ -118,10 +111,9 @@ class MainActivity : AppCompatActivity() {
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
 
-            // 이걸 해야지 없어진다
             refreshLayout.isRefreshing = false
             progressBar.hide()
-            // history에 따라 못가게 만들기
+
             goBackButton.isEnabled = webView.canGoBack()
             goForwardButton.isEnabled = webView.canGoForward()
 
