@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "832703485769",
+    "project_id": "part3-chapter01-pushalar-54473",
+    "storage_bucket": "part3-chapter01-pushalar-54473.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832703485769:android:a4a492dd7d876b94b0ac98",
+        "android_client_info": {
+          "package_name": "edu.android.project.part3_chapter01_pushalarm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "832703485769-d7ive90337hts6ln33aet982b1i8a952.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6Zct8OcP7G8xhemzhhm9dy3ary5MgImU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "832703485769-d7ive90337hts6ln33aet982b1i8a952.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
